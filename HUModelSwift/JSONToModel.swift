@@ -111,10 +111,6 @@ fileprivate func convert(_ any: Any, to classType: AnyClass) -> Any? {
 
 fileprivate func convert(_ dict: [String: Any], to classType: AnyClass) -> NSObject {
     
-    //    guard let dict = josn as? [String: Any] {
-    //
-    //    }
-    
     let type = classType as! NSObject.Type
     let object = type.init()
     let mirror = Mirror(reflecting: object)
@@ -160,9 +156,6 @@ fileprivate func convert(_ dict: [String: Any], to classType: AnyClass) -> NSObj
     return object
 }
 
-//fileprivate func reflect(with key: String) -> Value {
-//
-//}
 
 protocol Reflectable: class {
     
@@ -183,13 +176,13 @@ protocol Reflectable: class {
     ///         return ["user": User.self]
     ///    }
     ///
-    /// -important: 当你的类中包含包含另外一个对象时，要实现该方法
+    /// - important: 当你的类中包含包含另外一个对象时，要实现该方法
     
     var reflectedObject: [String: AnyClass] { get }
     
+    
     var objectInArray: [String: AnyClass] { get }
 }
-
 
 
 extension NSObject: Reflectable {

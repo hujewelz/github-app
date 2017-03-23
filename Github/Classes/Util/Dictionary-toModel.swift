@@ -41,61 +41,6 @@ func ~><T: NSObject>(lhs: Any, rhs: T.Type) -> [T]? {
     return array.flatMap { $0 ~> rhs }
 }
 
-//extension Dictionary {
-//    func convertToModel<T: NSObject>() -> T {
-//        let model = T.self()
-//        let mirror = Mirror(reflecting: model)
-//        
-//        for (lable, _) in mirror.children {
-//            
-//            if let jsonKey = model.reflectedProperty[lable!] as? Key, let value = self[jsonKey] {
-//                
-//                if value is NSNull { continue }
-//                
-//                // 如果 value 的值是数组或者字典
-//                if let dict = value as? [String: Any] {
-//                    
-//                    let classType = model.reflectedObject[lable!] as! NSObject.Type
-//                    let obj = classType.init()
-//                    
-//                } else {
-//                
-//                    model.setValue(value , forKey: lable!)
-//                }
-//                
-//            } else if let key = lable as? Key, let value = self[key] {
-//                model.setValue(value, forKey: lable!)
-//            }
-//
-//        }
-//        
-////        mirror.children.forEach {
-////            
-////            if let jsonKey = model.reflectedProperty[$0.0!] as? Key, let value = self[jsonKey] {
-////                
-////                // 如果 value 的值是数组或者字典
-////                
-////                if !(value is NSNull) {
-////                    
-////                    
-////                    
-////                    model.setValue(value , forKey: $0.0!)
-////                    
-////                }
-////                
-////            } else if let key = $0.0 as? Key, let value = self[key] {
-////                model.setValue(value, forKey: $0.0!)
-////           }
-////        }
-//        
-//        return model
-//    }
-//    
-//    
-//    
-//}
-
-
 fileprivate func convert(_ any: Any, to classType: AnyClass) -> Any? {
     
     if let dict = any as? [String: Any] {
@@ -110,10 +55,6 @@ fileprivate func convert(_ any: Any, to classType: AnyClass) -> Any? {
 }
 
 fileprivate func convert(_ dict: [String: Any], to classType: AnyClass) -> NSObject {
-    
-//    guard let dict = josn as? [String: Any] {
-//        
-//    }
     
     let type = classType as! NSObject.Type
     let object = type.init()
@@ -160,14 +101,11 @@ fileprivate func convert(_ dict: [String: Any], to classType: AnyClass) -> NSObj
     return object
 }
 
-//fileprivate func reflect(with key: String) -> Value {
-//    
-//}
-
 protocol Reflectable: class {
     
-    /// 将 `self` 中的属性映射为另外一个值
-    /// 例如我们要加 `desc` 替换为 `description`, 可以这样
+    /// 将 `self` 中的属性映射为另外一个值.
+    ///
+    /// 例如我们要将 `desc` 替换为 `description`, 可以这样
     ///
     ///     override var replacedProperty: [String: String] {
     ///         return ["desc": "description"]
@@ -176,17 +114,19 @@ protocol Reflectable: class {
     
     var reflectedProperty: [String: String] { get }
     
-    /// 将 `self` 中的属性映射为一个对象
+    /// 将 `self` 中的属性映射为一个对象.
+    ///
     /// 例如我们要加 `user` 替换为 `user`的实例, 可以这样
     ///
     ///     override var reflectedObject: [String : AnyClass] {
     ///         return ["user": User.self]
     ///    }
     ///
-    /// -important: 当你的类中包含包含另外一个对象时，要实现该方法
+    /// - important: 当你的类中包含另外一个对象时，要实现该方法
 
     var reflectedObject: [String: AnyClass] { get }
     
+    /// 数组中包含的对象
     var objectInArray: [String: AnyClass] { get }
 }
 
