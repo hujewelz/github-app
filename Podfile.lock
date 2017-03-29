@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.4.0)
+  - ModelSwift (0.2.1)
   - PromiseKit (4.1.7):
     - PromiseKit/Foundation (= 4.1.7)
     - PromiseKit/QuartzCore (= 4.1.7)
@@ -19,6 +20,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - ModelSwift
   - PromiseKit
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
@@ -27,12 +29,13 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  ModelSwift: f898386b0d549b44daee539f4ad17e260623581e
   PromiseKit: 779f2e41faf62d854e7593026ddbcb0bb5c5002d
   RxCocoa: 7dcb7a1860fc9cd0e23dae67ab105fc2916670b6
   RxSwift: 8fc9f2de6275a9101d518444e00bf32f1a42caac
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: bd1d39e0f3102e9b5cd3c11d2317d69d41988647
+PODFILE CHECKSUM: ac1d51af896a90ebc799a08da9a18d618adffffe
 
 COCOAPODS: 1.2.0

@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import SnapKit
 import Alamofire
+import ModelSwift
 
 class LoginViewController: UIViewController {
 
@@ -35,30 +35,7 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-}
-
-extension LoginViewController: UIWebViewDelegate {
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        print("did load: \(webView.request)")
-        
-        let js = "document.getElementsByTagName('pre')[0].innerHTML"
-        
-        guard let result = webView.stringByEvaluatingJavaScript(from: js) else {
-            return
-        }
-        guard let token = result.components(separatedBy: "&").first?.components(separatedBy: "=").last else {
-            return
-        }
-        
-        print("token: \(token)")
-        if token.isEmpty {
-            webView.reload()
-            return
-        }
-        
-        webView.isHidden = true
-        
+    fileprivate func signIn(with token: String) {
         UserManager.shared.save(token)
         
         Alamofire.request(USER_INFO_URL + token).responseJSON { response in
@@ -67,16 +44,38 @@ extension LoginViewController: UIWebViewDelegate {
                 return
             }
             
-           // debugPrint(json)
-            guard let user: User = json ~> User.self else {
-               return
-            }
-            
+            //debugPrint(json)
+            let user = (json ~> User.self)!
             UserManager.shared.save(user)
+            
             let window = (UIApplication.shared.delegate as! AppDelegate).window
             window?.rootViewController = MainTabBarController()
         }
+    }
+    
+}
+
+extension LoginViewController: UIWebViewDelegate {
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        
+        let url = (request.url?.absoluteString)!
+        if !url.hasPrefix("app://token") {
+            return true
+        }
+       
+        let token = url.components(separatedBy: "=").last!
+        print("token: \(token)")
+
+        signIn(with: token)
+        
+        return false
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        print("did load: \(webView.request)")
         
     }
+    
 }
 

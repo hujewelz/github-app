@@ -9,6 +9,7 @@ target 'Github' do
   pod 'SVProgressHUD'
   pod 'RxSwift',    '~> 3.0'
   pod 'RxCocoa',    '~> 3.0'
+  pod 'ModelSwift'
 #  pod 'RealmSwift'
   # Pods for Github
   

@@ -10,6 +10,20 @@ import UIKit
 
 class BasicCell: UITableViewCell {
 
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        separatorInset = .zero
+        layoutMargins = .zero
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        separatorInset = .zero
+        layoutMargins = .zero
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -17,6 +31,7 @@ class BasicCell: UITableViewCell {
         separatorInset = .zero
         layoutMargins = .zero
     }
+    
     
     class var reuseIdentifier: String {
         return String(describing: self)
@@ -27,3 +42,5 @@ class BasicCell: UITableViewCell {
     }
 
 }
+
+
